@@ -44,9 +44,7 @@ namespace CatalogueApp.Data.Repositories
 
                 existingProduct.Description = product.Description;
 
-                existingProduct.Price = product.Price;
-
-                _dbContext.Attach(existingProduct);
+                existingProduct.Price = product.Price;               
 
                 _dbContext.SaveChanges();
             }

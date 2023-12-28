@@ -22,6 +22,10 @@ namespace CatalogueApp.Data.Data.Models.Configurations
 
             builder.Property(x => x.Price)
                 .IsRequired();
+
+            builder.HasMany(x => x.Categories)
+                .WithMany(x => x.Products)
+                .UsingEntity("Producy Categories");
         }
 
     }
