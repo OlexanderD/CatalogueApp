@@ -26,10 +26,13 @@ namespace CatalogueApp.ConsoleUi.Common
             service.AddDbContext<TestContext>(options => options.UseSqlite(connectionString));
 
             service.AddTransient<IProductRepository, ProductRepository>();
+            service.AddTransient<ICategoryRepository, CategoryRepository>();
 
             service.AddTransient<IProductService, ProductService>();
+            service.AddTransient<ICategoryService, CategoryService>();
 
             service.AddTransient<ProductController>();
+            service.AddTransient<CategoryController>();
 
 
             return service.BuildServiceProvider();

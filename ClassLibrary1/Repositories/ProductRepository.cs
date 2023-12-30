@@ -1,6 +1,7 @@
 ﻿using CatalogueApp.Data.Data;
 using CatalogueApp.Data.Data.Models;
 using CatalogueApp.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace CatalogueApp.Data.Repositories
 
         public List<Product> GetAllProducts()
         {
-            return _dbContext.Products.ToList();
+            return _dbContext.Products.Include(x =>x.Categories).ToList();
         }
 
         public void AddProduct(Product product)
@@ -51,7 +52,7 @@ namespace CatalogueApp.Data.Repositories
         }
         public Product GetProductById(int id)
         {
-            return _dbContext.Products.Find(id);
+            return _dbContext.Products.Include(x => x.Categories).FirstOrDefault(x => x.Id == id);
         }
 
 
