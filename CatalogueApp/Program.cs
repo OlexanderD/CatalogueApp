@@ -157,7 +157,7 @@ class Program
 
                                     productController.RemoveProduct(potentialTrash);
 
-                                    Console.WriteLine("Oshibka");
+                                    
 
                                     Console.ReadKey();
 
@@ -185,8 +185,6 @@ class Program
                                     {
                                         potentialTrash.Categories.Remove(deletedCategorie);
 
-                                        potentialTrash.Id = Delid;
-
                                         productController.UpdateProduct(potentialTrash);
 
                                     }
@@ -196,7 +194,8 @@ class Program
                             {
                                 Console.WriteLine("No such product");
 
-                                Console.ReadKey();
+                                Console.ReadKey(
+                                    );
                             }
                                 break;
 
@@ -261,14 +260,14 @@ class Program
 
                                     if (existingCategory != null)
                                     {
-                                        Category updatedCategory = new Category();
+                                        
 
                                         Console.WriteLine("Enter a name");
-                                        updatedCategory.Name = Console.ReadLine();
+                                        existingCategory.Name = Console.ReadLine();
 
-                                        updatedCategory.Id = categoryId;
+                                        
 
-                                        categoryController.UpdateCategory(updatedCategory);
+                                        categoryController.UpdateCategory(existingCategory);
                                     }
                                     else
                                     {
@@ -300,9 +299,6 @@ class Program
                                         {
                                             exsistingProduct.Categories.Add(potentialCategory4);
 
-
-                                            exsistingProduct.Id = uptadeId;
-
                                             productController.UpdateProduct(exsistingProduct);
 
                                         }
@@ -332,6 +328,8 @@ class Program
 
                                         Console.WriteLine("Enter a new price");
                                         exsistingProduct.Price = Convert.ToInt32(Console.ReadLine());
+
+                                        productController.UpdateProduct(exsistingProduct);
                                     }
                                 }
 
@@ -444,13 +442,12 @@ class Program
 
                             if (existingCategory != null)
                             {
-                                Category updatedCategory = new Category();
-
+                                
                                 Console.WriteLine("Enter a name");
-                                updatedCategory.Name = Console.ReadLine();
 
-                                updatedCategory.Id = updateId;
-                                categoryController.UpdateCategory(updatedCategory);
+                                existingCategory.Name = Console.ReadLine();
+
+                                categoryController.UpdateCategory(existingCategory);
                             }
                             else
                             {
