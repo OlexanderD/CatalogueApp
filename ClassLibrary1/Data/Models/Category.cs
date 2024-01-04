@@ -18,7 +18,7 @@ namespace CatalogueApp.Data.Data.Models
 
         public Category? ParentCategory { get; set; }
 
-        public List<Category> ChildCategories { get; set; }
+        public List<Category>  ChildCategories { get; set; }
 
         public List<Product> Products { get; set; }
 

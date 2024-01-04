@@ -371,25 +371,100 @@ class Program
 
                             var allCategories1 = categoryController.GetAllCategories();
 
-                                foreach (var category1 in allCategories1)
-                                {
-                                    Console.WriteLine($"{category1.Id}---{category1.Name}");
-                                }
+                            foreach (var category in allCategories1)
+                            {
+                                Console.WriteLine($"Id: {category.Id}");
+                                Console.WriteLine($"Name: {category.Name}");
+                                Console.WriteLine($"Parent Category: {category.ParentCategory?.Name ?? "No parent category"}");
 
-                            Console.ReadKey();
+                                Console.WriteLine("Subcategories:");
+                                if (category.ChildCategories != null)
+                                {
+                                    foreach (var subcategory in category.ChildCategories)
+                                    {
+                                        Console.WriteLine("- " + subcategory.Name);
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("  No subcategories");
+                                }
+                            }
+
+                                Console.ReadKey();
                             
                          
                             break;
 
 
                         case 2:
-                            Console.WriteLine("Create Categorie");
+                            Console.WriteLine("Create Category");
 
-                            Category category = new Category();
+                           
+                            Console.WriteLine("Choose category type:");
+                            Console.WriteLine("1. Regular Category");
+                            Console.WriteLine("2. Subcategory");
+                            Console.WriteLine("Enter your choice:");
 
-                            category.Name = Console.ReadLine();
+                            int categoryChoice;
+                            Int32.TryParse(Console.ReadLine(), out categoryChoice);
 
-                            categoryController.AddCategory(category);
+                           
+                            if (categoryChoice == 1)
+                            {
+                                
+                                Category category = new Category();
+
+                                Console.WriteLine("Enter a name");
+                                category.Name = Console.ReadLine();
+
+                                categoryController.AddCategory(category);
+                                Console.WriteLine("Category added successfully!");
+                            }
+                            else if (categoryChoice == 2)
+                            {
+                               
+                                Console.WriteLine("Available categories for parent category:");
+
+                                var allCategories2 = categoryController.GetAllCategories();
+                                foreach (var category in allCategories2)
+                                {
+                                    Console.WriteLine($"{category.Id}-{category.Name}");
+                                }
+
+                                Console.WriteLine("Enter Id of parent category:");
+                                int parentCategoryId;
+                                Int32.TryParse(Console.ReadLine(), out parentCategoryId);
+
+                               
+                                var parentCategory = categoryController.GetCategoryById(parentCategoryId);
+
+                                if (parentCategory != null)
+                                {
+                                   
+                                    Category subcategory = new Category();
+
+                                    Console.WriteLine("Enter a name");
+                                    subcategory.Name = Console.ReadLine();
+
+
+
+                                    subcategory.ParentCategoryId = parentCategoryId;
+
+                                    subcategory.ParentCategory = parentCategory;
+
+                                    categoryController.AddCategory(subcategory);
+                                    Console.WriteLine("Subcategory added successfully!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid parent category ID.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid choice.");
+                            }
                             break;
 
                         case 3:
