@@ -20,5 +20,7 @@ namespace CatalogueApp.Data.Interfaces
 
         Product GetProductById(int id);
 
+         List <Product> GetProductByCategoryId(int categoryId);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CatalogueApp.ConsoleUi.Common;
 using CatalogueApp.ConsoleUi.Controllers;
 using CatalogueApp.Data.Data.Models;
+using CatalogueApp.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -18,6 +19,10 @@ class Program
 
         CategoryController categoryController = serviceProvider.GetRequiredService<CategoryController>();
 
+        
+
+        
+
         while (true)
         {
             Console.Clear();
@@ -33,7 +38,7 @@ class Program
                 case 1:
                     Console.Clear();
                     Console.WriteLine(" # # # # # Products Menu # # # # #");
-                    Console.WriteLine("1 - View Products | 2 - Create Product | 3 - Delete Product | 4 - Update Product | 0 - Back");
+                    Console.WriteLine("1 - View Products | 2 - Create Product | 3 - Delete Product | 4 - Update Product | 5 - Find Products | 0 - Back");
 
                     int productsChoice;
                     if (!int.TryParse(Console.ReadLine(), out productsChoice))
@@ -342,6 +347,44 @@ class Program
                             }
 
             break;
+                        case 5:
+
+                            Console.WriteLine("Search for products");
+
+                            var categories = categoryController.GetAllCategories();
+        
+                            foreach (var category in categories)
+                            {
+                                Console.WriteLine($"Id: {category.Id} Name: {category.Name}");
+
+                                Console.WriteLine();
+                            }
+
+                            
+                            Console.WriteLine("Enter the category ID:");
+                            int categoryId5 = int.Parse(Console.ReadLine());
+
+                            
+                            var products = productController.GetProductByCategoryId(categoryId5);
+
+                            
+                            if (products.Count == 0)
+                            {
+                                Console.WriteLine("Don't found any products with such category");
+                            }
+                            else
+                            {
+                               
+                                foreach (var product in products)
+                                {
+                                    Console.WriteLine($"Id: {product.Id} Name: {product.Name}");
+
+                                    Console.WriteLine();
+                                }
+                            }
+                            Console.ReadKey();
+                            break;
+
 
                         case 0:
                             break;
@@ -389,6 +432,7 @@ class Program
                                 {
                                     Console.WriteLine("  No subcategories");
                                 }
+                                Console.WriteLine();
                             }
 
                                 Console.ReadKey();

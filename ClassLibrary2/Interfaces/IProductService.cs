@@ -20,5 +20,7 @@ namespace ClassLibrary2.Interfaces
 
 
         Product GetProductById(int id);
+
+        List<Product> GetProductByCategoryId(int categoryId);
     }
 }

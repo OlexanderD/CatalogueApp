@@ -55,6 +55,14 @@ namespace CatalogueApp.Data.Repositories
             return _dbContext.Products.Include(x => x.Categories).FirstOrDefault(x => x.Id == id);
         }
 
+        public List<Product> GetProductByCategoryId(int categoryId)
+        {
+           
+            return _dbContext.Products
+                .Where(p => p.Categories.Any(c => c.Id == categoryId || c.ParentCategoryId == categoryId))
+                .ToList();
+        }
+
 
     }
 }

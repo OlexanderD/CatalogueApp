@@ -42,5 +42,10 @@ namespace ClassLibrary2.Services
         {
             return _productRepository.GetProductById(id);
         }
+
+        public List<Product> GetProductByCategoryId(int categoryId)
+        {
+            return _productRepository.GetProductByCategoryId(categoryId);
+        }
     }
 }

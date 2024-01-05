@@ -42,5 +42,10 @@ namespace CatalogueApp.ConsoleUi.Controllers
         {
             return _productService.GetProductById(id);
         }
+
+        public List<Product> GetProductByCategoryId(int categoryId)
+        {
+            return _productService.GetProductByCategoryId(categoryId);
+        }
     }
 }
