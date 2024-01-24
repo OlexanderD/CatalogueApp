@@ -15,7 +15,7 @@ namespace CatalogueApp.Data.Interfaces
 
         void UpdateProduct(Product product);
 
-        void DeleteProduct(int id);
+        void DeleteProduct(Product product);
 
 
         Product GetProductById(int id);

@@ -41,7 +41,8 @@ namespace ClassLibrary2.Services
 
         public void RemoveCategory(int id)
         {
-            _categoryRepository.RemoveCategory(id);
+            Category category = _categoryRepository.GetCategoryById(id);
+            _categoryRepository.RemoveCategory(category);
         }
     }
 }

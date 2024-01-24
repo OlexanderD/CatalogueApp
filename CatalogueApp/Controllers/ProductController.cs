@@ -30,7 +30,7 @@ namespace CatalogueApp.ConsoleUi.Controllers
 
         public void RemoveProduct(Product product)
         {
-            _productService.DeleteProduct(product);
+           //_productService.DeleteProduct(product);
         }
 
         public void UpdateProduct(Product product)

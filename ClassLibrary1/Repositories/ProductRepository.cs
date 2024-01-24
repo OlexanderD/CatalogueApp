@@ -2,11 +2,6 @@
 using CatalogueApp.Data.Data.Models;
 using CatalogueApp.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CatalogueApp.Data.Repositories
 {
@@ -30,15 +25,12 @@ namespace CatalogueApp.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(Product product)
         {
-            Product product = _dbContext.Products.Find(id);
-
-            if (product != null)
-            {
+                       
                 _dbContext.Products.Remove(product);
                 _dbContext.SaveChanges();
-            }
+            
         }
         public void UpdateProduct(Product product)
         {

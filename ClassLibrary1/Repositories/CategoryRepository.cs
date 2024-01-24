@@ -12,37 +12,35 @@ namespace CatalogueApp.Data.Repositories
 {
     public class CategoryRepository:ICategoryRepository
     {
-        private readonly TestContext _categoryRepository;
+        private readonly TestContext _dbContext;
 
-        public CategoryRepository(TestContext categoryRepository)
+        public CategoryRepository(TestContext dbContext)
         {
-            _categoryRepository = categoryRepository;
+            _dbContext = dbContext;
         }
 
         public List<Category> GetAllCategories()
         {
-            return _categoryRepository.Categories.ToList();
+            return _dbContext.Categories.ToList();
         }
 
         public void AddCategory(Category category)
         {
-            _categoryRepository.Categories.Add(category);
-            _categoryRepository.SaveChanges();
+            _dbContext.Categories.Add(category);
+            _dbContext.SaveChanges();
         }
 
-        public void RemoveCategory(int id)
+        public void RemoveCategory(Category category)
         {
-            Category category = _categoryRepository.Categories.Find(id);
-            if (category != null)
-            {
-                _categoryRepository.Categories.Remove(category);
-                _categoryRepository.SaveChanges();
-            }
+           
+                _dbContext.Categories.Remove(category);
+                _dbContext.SaveChanges();
+            
         }
 
         public  void UpdateCategory(Category category)
         {
-            var exsistingCategory = _categoryRepository.Categories.Find(category.Id);
+            var exsistingCategory = _dbContext.Categories.Find(category.Id);
 
             if (exsistingCategory != null)
             {
@@ -50,12 +48,12 @@ namespace CatalogueApp.Data.Repositories
 
                
             }
-            _categoryRepository.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public Category GetCategoryById(int id)
         {
-            return _categoryRepository.Categories.Find(id);
+            return _dbContext.Categories.Find(id);
         }
 
     }

@@ -24,7 +24,7 @@ namespace CatalogueApp.ConsoleUi.Controllers
 
         public void RemoveCategory(Category category)
         {
-            _categoryService.RemoveCategory(category);
+           // _categoryService.RemoveCategory(category);
         }
 
         public void UpdateCategory(Category category)

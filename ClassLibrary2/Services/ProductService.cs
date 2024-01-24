@@ -30,7 +30,8 @@ namespace ClassLibrary2.Services
 
         public void DeleteProduct(int id)
         {
-            _productRepository.DeleteProduct(id);
+            Product product = _productRepository.GetProductById(id);
+            _productRepository.DeleteProduct(product);
         }
 
         public void UpdateProduct(Product product)
