@@ -16,7 +16,7 @@ namespace ClassLibrary2.Interfaces
 
         void UpdateProduct(Product product);
 
-        void DeleteProduct(Product product);
+        void DeleteProduct(int id);
 
 
         Product GetProductById(int id);

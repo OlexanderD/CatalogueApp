@@ -28,10 +28,10 @@ namespace WebCatalogue.Controllers
             _categoryService.AddCategory(category);
         }
 
-        [HttpDelete]
-        public void RemoveCategory(Category category)
+        [HttpDelete("{id}")]
+        public void RemoveCategory(int id)
         {
-            _categoryService.RemoveCategory(category);
+            _categoryService.RemoveCategory(id);
         }
 
         [HttpPut]

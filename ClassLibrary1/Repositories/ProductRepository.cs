@@ -30,10 +30,15 @@ namespace CatalogueApp.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(int id)
         {
-            _dbContext.Products.Remove(product);
-            _dbContext.SaveChanges();
+            Product product = _dbContext.Products.Find(id);
+
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                _dbContext.SaveChanges();
+            }
         }
         public void UpdateProduct(Product product)
         {

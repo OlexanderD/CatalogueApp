@@ -28,9 +28,9 @@ namespace ClassLibrary2.Services
             _productRepository.AddProduct(product);
         }
 
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(int id)
         {
-            _productRepository.DeleteProduct(product);
+            _productRepository.DeleteProduct(id);
         }
 
         public void UpdateProduct(Product product)

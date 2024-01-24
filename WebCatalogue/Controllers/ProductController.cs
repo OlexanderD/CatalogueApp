@@ -30,9 +30,9 @@ namespace WebCatalogue.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(int id)
         {
-            _productService.DeleteProduct(product);
+            _productService.DeleteProduct(id);
         }
 
         [HttpPut]

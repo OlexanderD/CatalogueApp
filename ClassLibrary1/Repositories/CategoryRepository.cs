@@ -30,10 +30,14 @@ namespace CatalogueApp.Data.Repositories
             _categoryRepository.SaveChanges();
         }
 
-        public void RemoveCategory(Category category)
+        public void RemoveCategory(int id)
         {
-            _categoryRepository.Categories.Remove(category);
-            _categoryRepository.SaveChanges();
+            Category category = _categoryRepository.Categories.Find(id);
+            if (category != null)
+            {
+                _categoryRepository.Categories.Remove(category);
+                _categoryRepository.SaveChanges();
+            }
         }
 
         public  void UpdateCategory(Category category)
