@@ -44,25 +44,26 @@ namespace CatalogueApp.Data.Repositories
         }
         public void UpdateProduct(Product product)
         {
-            Product? existingProduct = _dbContext.Products.Find(product.Id);
+            Product? existingProduct = _dbContext.Products
+                .Include(p => p.Categories) // подключаем таблицу категорий, чтобы ef следил за изменениями связей с этой таблицей
+                .First(p => p.Id == product.Id);
 
-            if (existingProduct != null)
+            if (existingProduct == null)
             {
-                product.Categories = product.Categories.Select(c =>
-                {
-                    var category = _dbContext.Categories.Find(c.Id);
-
-                    return category ?? c;
-                }).ToList();
-
-                existingProduct.Categories.RemoveAll(c => product.Categories.Any(pc => pc.Id != c.Id));
-
-                existingProduct.Name = product.Name;
-                existingProduct.Price = product.Price;
-                existingProduct.Description = product.Description;
-
-                _dbContext.SaveChanges();
+                throw new Exception($"Product with id ({product.Id}) not found.");
             }
+
+            existingProduct.Name = product.Name;
+            existingProduct.Price = product.Price;
+            existingProduct.Description = product.Description;
+
+            var categoryIds = product.Categories.Select(pc => pc.Id); // выбираем Idшники категорий которые будут у обновленного продукта
+
+            existingProduct.Categories = _dbContext.Categories
+                .Where(c => categoryIds.Any(pc => c.Id == pc)) // вытаскиваем из базы категории Id которых содержится в списке идшников
+                .ToList();
+
+            _dbContext.SaveChanges(); // значения меняются благодаря трекингу 
         }
         public Product GetProductById(int id)
         {
