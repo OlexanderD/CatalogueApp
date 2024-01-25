@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CatalogueApp.Data.Data.Models;
 using ClassLibrary2.Interfaces;
+using AutoMapper;
+using WebCatalogue.ViewModels;
 
 namespace WebCatalogue.Controllers
 {
@@ -11,21 +13,30 @@ namespace WebCatalogue.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        private readonly IMapper _mapper;
+        public CategoryController(ICategoryService categoryService,IMapper mapper)
         {
             _categoryService = categoryService;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public List<Category> GetAllCategories()
+        public List<CategoryViewModel> GetAllCategories()
         {
-            return _categoryService.GetAllCategories();
+            List<Category> categories = _categoryService.GetAllCategories();
+
+            
+            List<CategoryViewModel> categoryViewModels = _mapper.Map<List<Category>, List<CategoryViewModel>>(categories);
+
+            return categoryViewModels;
+
         }
 
         [HttpPost]
-        public void AddCategory(Category category)
+        public void AddCategory(CategoryViewModel categoryViewModel)
         {
-            _categoryService.AddCategory(category);
+            _categoryService.AddCategory(_mapper.Map<Category>(categoryViewModel));
         }
 
         [HttpDelete("{id}")]
@@ -35,9 +46,9 @@ namespace WebCatalogue.Controllers
         }
 
         [HttpPut]
-        public void UpdateCategory(Category category)
+        public void UpdateCategory(CategoryViewModel categoryViewModel)
         {
-            _categoryService.UpdateCategory(category);
+            _categoryService.UpdateCategory(_mapper.Map<Category>(categoryViewModel));
         }
 
         [HttpGet("{id}")]

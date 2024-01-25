@@ -1,7 +1,10 @@
-﻿using CatalogueApp.Data.Data.Models;
+﻿using AutoMapper;
+using CatalogueApp.Data.Data.Models;
 using ClassLibrary2.Interfaces;
+using ClassLibrary2.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebCatalogue.ViewModels;
 
 namespace WebCatalogue.Controllers
 {
@@ -12,21 +15,30 @@ namespace WebCatalogue.Controllers
 
         private readonly IProductService _productService;
 
-        public ProductController(IProductService productService)
+        private readonly IMapper _mapper;
+
+        public ProductController(IProductService productService,IMapper mapper)
         {
             _productService = productService;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public List<Product> GetAllProducts()
+        public List<ProductViewModel> GetAllProducts()
         {
-            return _productService.GetAllProducts();
+            List<Product> products = _productService.GetAllProducts();
+
+
+            List<ProductViewModel> productViewModels = _mapper.Map<List<Product>, List<ProductViewModel>>(products);
+
+            return productViewModels;
         }
 
         [HttpPost]
-        public void AddProduct(Product product)
+        public void AddProduct(ProductViewModel productViewModel)
         {
-            _productService.AddProduct(product);
+            _productService.AddProduct(_mapper.Map<Product>(productViewModel));
         }
 
         [HttpDelete("{id}")]
@@ -36,15 +48,19 @@ namespace WebCatalogue.Controllers
         }
 
         [HttpPut]
-        public void UpdateProduct(Product product)
+        public void UpdateProduct(ProductViewModel productViewModel)
         {
-            _productService.UpdateProduct(product);
+            _productService.UpdateProduct(_mapper.Map<Product>(productViewModel));
         }
 
         [HttpGet("{id}")]
-        public Product GetProductById(int id)
+        public ProductViewModel GetProductById(int id)
         {
-            return _productService.GetProductById(id);
+            Product product = _productService.GetProductById(id);
+
+            ProductViewModel productViewModel = _mapper.Map<ProductViewModel>(product);
+
+            return productViewModel;
         }
 
         [HttpGet("GetProductByCategoryId")]

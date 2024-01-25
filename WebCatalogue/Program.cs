@@ -4,6 +4,7 @@ using CatalogueApp.Data.Repositories;
 using ClassLibrary2.Interfaces;
 using ClassLibrary2.Services;
 using Microsoft.EntityFrameworkCore;
+using WebCatalogue.Common.Mappings;
 using WebCatalogue.Controllers;
 
 var builder = WebApplication.CreateBuilder();
@@ -23,6 +24,8 @@ builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddTransient<ProductController>();
 builder.Services.AddTransient<CategoryController>();
+
+builder.Services.AddAutoMapper(typeof(CatalogueMapProfile));
 
 builder.Services.AddControllers();
 
