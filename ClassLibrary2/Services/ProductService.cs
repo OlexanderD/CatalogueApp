@@ -25,6 +25,8 @@ namespace ClassLibrary2.Services
 
         public void AddProduct(Product product)
         {
+            product.Categories.First().Products.Add(product);
+
             _productRepository.AddProduct(product);
         }
 

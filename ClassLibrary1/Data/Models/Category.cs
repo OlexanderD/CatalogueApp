@@ -20,7 +20,7 @@ namespace CatalogueApp.Data.Data.Models
 
         public List<Category>  ChildCategories { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<Product> Products { get; set; } = new();
 
     }
 }

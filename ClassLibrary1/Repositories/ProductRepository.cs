@@ -21,6 +21,16 @@ namespace CatalogueApp.Data.Repositories
 
         public void AddProduct(Product product)
         {
+            // тут сделать запрос в контекст категории, и попробовать вытянуть категорию product.Categories.First().Id
+
+            var category = _dbContext.Categories.Find(product.Categories.First().Id);
+
+            // чекнуть является ли вытянутая пука null, если нет - product.Categories[0] = вытянутая категория
+            if (category != null)
+            {
+                product.Categories[0] = category;
+            }
+
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
         }
@@ -34,15 +44,22 @@ namespace CatalogueApp.Data.Repositories
         }
         public void UpdateProduct(Product product)
         {
-            Product existingProduct = _dbContext.Products.Find(product.Id);
+            Product? existingProduct = _dbContext.Products.Find(product.Id);
 
             if (existingProduct != null)
             {
+                product.Categories = product.Categories.Select(c =>
+                {
+                    var category = _dbContext.Categories.Find(c.Id);
+
+                    return category ?? c;
+                }).ToList();
+
+                existingProduct.Categories.RemoveAll(c => product.Categories.Any(pc => pc.Id != c.Id));
+
                 existingProduct.Name = product.Name;
-
+                existingProduct.Price = product.Price;
                 existingProduct.Description = product.Description;
-
-                existingProduct.Price = product.Price;               
 
                 _dbContext.SaveChanges();
             }

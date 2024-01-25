@@ -14,9 +14,9 @@ namespace CatalogueApp.Data.Data.Models
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }  
+        public decimal Price { get; set; }
 
-        public List<Category> Categories { get; set;}
+        public List<Category> Categories { get; set; } = new();
 
     }
 }

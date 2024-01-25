@@ -47,7 +47,7 @@ namespace WebCatalogue.Controllers
             _productService.DeleteProduct(id);
         }
 
-        [HttpPut]
+        [HttpPost("UpdateProduct")]
         public void UpdateProduct(ProductViewModel productViewModel)
         {
             _productService.UpdateProduct(_mapper.Map<Product>(productViewModel));
