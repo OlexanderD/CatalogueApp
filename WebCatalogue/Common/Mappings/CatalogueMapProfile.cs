@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CatalogueApp.Data.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using WebCatalogue.ViewModels;
 
 namespace WebCatalogue.Common.Mappings
@@ -11,6 +12,8 @@ namespace WebCatalogue.Common.Mappings
             CreateMap<Category, CategoryViewModel>().ReverseMap();
 
             CreateMap<Product, ProductViewModel>().ReverseMap();
+
+            CreateMap<IdentityUser,UserViewModel>().ReverseMap();
         }
 
     }

@@ -1,4 +1,6 @@
 ﻿using CatalogueApp.Data.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CatalogueApp.Data.Data
 {
-    public class TestContext : DbContext
+    public class TestContext : IdentityDbContext<IdentityUser>
     {
 
          public DbSet<Product> Products { get; set; }
