@@ -13,7 +13,9 @@ namespace WebCatalogue.Common.Mappings
 
             CreateMap<Product, ProductViewModel>().ReverseMap();
 
-            CreateMap<IdentityUser,UserViewModel>().ReverseMap();
+            CreateMap<IdentityUser,UserViewModel>()
+                .ReverseMap()
+                .ForMember(m => m.PasswordHash, n => n.MapFrom(u => u.Password)); ;
         }
 
     }

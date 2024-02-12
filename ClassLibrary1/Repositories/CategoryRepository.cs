@@ -42,12 +42,11 @@ namespace CatalogueApp.Data.Repositories
         {
             var exsistingCategory = _dbContext.Categories.Find(category.Id);
 
-            if (exsistingCategory != null)
+            if (exsistingCategory == null)
             {
-                exsistingCategory.Name = category.Name;
-
-               
+                throw new Exception($"Error occurred while updating category, category with id ({category.Id}) not found");
             }
+            exsistingCategory.Name = category.Name;
             _dbContext.SaveChanges();
         }
 

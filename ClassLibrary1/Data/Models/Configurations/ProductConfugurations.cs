@@ -26,6 +26,8 @@ namespace CatalogueApp.Data.Data.Models.Configurations
             builder.HasMany(x => x.Categories)
                 .WithMany(x => x.Products)
                 .UsingEntity("Producy Categories");
+
+            
         }
 
     }

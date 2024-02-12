@@ -22,8 +22,8 @@ namespace CatalogueApp.Data.Data
 
         public TestContext(DbContextOptions options) : base(options)
         {
-            
-             Database.EnsureCreated();
+          
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

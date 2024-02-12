@@ -26,11 +26,11 @@ namespace CatalogueApp.Data.Repositories
             var category = _dbContext.Categories.Find(product.Categories.First().Id);
 
             // чекнуть является ли вытянутая пука null, если нет - product.Categories[0] = вытянутая категория
-            if (category != null)
+            if (category == null)
             {
-                product.Categories[0] = category;
+                throw new Exception($"Product with such id{product.Id} not found");
             }
-
+            product.Categories[0] = category;
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
         }

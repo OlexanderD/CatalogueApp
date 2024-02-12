@@ -2,6 +2,8 @@
 using CatalogueApp.Data.Data.Models;
 using ClassLibrary2.Interfaces;
 using ClassLibrary2.Services;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebCatalogue.ViewModels;
@@ -17,11 +19,19 @@ namespace WebCatalogue.Controllers
 
         private readonly IMapper _mapper;
 
-        public ProductController(IProductService productService,IMapper mapper)
+        private readonly IValidator <ProductViewModel> _validator;
+
+        private readonly ILogger<ProductController> _logger;
+
+        public ProductController(IProductService productService,IMapper mapper, IValidator<ProductViewModel> validator, ILogger<ProductController> logger)
         {
             _productService = productService;
 
             _mapper = mapper;
+
+            _validator = validator;
+
+            _logger = logger;
         }
 
         [HttpGet]
@@ -32,25 +42,49 @@ namespace WebCatalogue.Controllers
 
             List<ProductViewModel> productViewModels = _mapper.Map<List<Product>, List<ProductViewModel>>(products);
 
+            _logger.LogInformation("All Products");
+
             return productViewModels;
         }
 
         [HttpPost]
-        public void AddProduct(ProductViewModel productViewModel)
+        [Authorize]
+        public IActionResult AddProduct(ProductViewModel productViewModel)
         {
+            var validationResult = _validator.Validate(productViewModel);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
             _productService.AddProduct(_mapper.Map<Product>(productViewModel));
+            _logger.LogInformation("Product Added");
+            return Ok("Product added");
         }
 
         [HttpDelete("{id}")]
-        public void RemoveProduct(int id)
+        public IActionResult RemoveProduct(int id)
         {
+            _logger.LogInformation("Product Deleted");
             _productService.DeleteProduct(id);
+            return Ok("Product Deleted");
         }
 
         [HttpPost("UpdateProduct")]
-        public void UpdateProduct(ProductViewModel productViewModel)
+        [Authorize]
+        public IActionResult UpdateProduct(ProductViewModel productViewModel)
         {
+            var validationResult = _validator.Validate(productViewModel);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
             _productService.UpdateProduct(_mapper.Map<Product>(productViewModel));
+            _logger.LogInformation("Product succesfully updated");
+            return Ok("Product succesfully updated");
         }
 
         [HttpGet("{id}")]
@@ -60,12 +94,15 @@ namespace WebCatalogue.Controllers
 
             ProductViewModel productViewModel = _mapper.Map<ProductViewModel>(product);
 
+            _logger.LogInformation($"Product #{id}");
+
             return productViewModel;
         }
 
         [HttpGet("GetProductByCategoryId")]
         public List<Product> GetProductByCategoryId(int categoryId)
         {
+            _logger.LogInformation($"Product by category{categoryId}");
             return _productService.GetProductByCategoryId(categoryId);
         }
     }
