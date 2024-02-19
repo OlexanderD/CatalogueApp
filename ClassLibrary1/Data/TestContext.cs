@@ -14,11 +14,14 @@ namespace CatalogueApp.Data.Data
     public class TestContext : IdentityDbContext<IdentityUser>
     {
 
-         public DbSet<Product> Products { get; set; }
+         public virtual DbSet<Product> Products { get; set; }
 
-         public DbSet<Category> Categories { get; set; }
+         public virtual DbSet<Category> Categories { get; set; }
         
-       
+       public TestContext()
+        {
+
+        }
 
         public TestContext(DbContextOptions options) : base(options)
         {

@@ -21,11 +21,11 @@ namespace CatalogueApp.Data.Repositories
 
         public void AddProduct(Product product)
         {
-            // тут сделать запрос в контекст категории, и попробовать вытянуть категорию product.Categories.First().Id
+            
 
             var category = _dbContext.Categories.Find(product.Categories.First().Id);
 
-            // чекнуть является ли вытянутая пука null, если нет - product.Categories[0] = вытянутая категория
+            
             if (category == null)
             {
                 throw new Exception($"Product with such id{product.Id} not found");
@@ -45,7 +45,7 @@ namespace CatalogueApp.Data.Repositories
         public void UpdateProduct(Product product)
         {
             Product? existingProduct = _dbContext.Products
-                .Include(p => p.Categories) // подключаем таблицу категорий, чтобы ef следил за изменениями связей с этой таблицей
+                .Include(p => p.Categories) 
                 .First(p => p.Id == product.Id);
 
             if (existingProduct == null)
@@ -57,13 +57,13 @@ namespace CatalogueApp.Data.Repositories
             existingProduct.Price = product.Price;
             existingProduct.Description = product.Description;
 
-            var categoryIds = product.Categories.Select(pc => pc.Id); // выбираем Idшники категорий которые будут у обновленного продукта
+            var categoryIds = product.Categories.Select(pc => pc.Id); 
 
             existingProduct.Categories = _dbContext.Categories
-                .Where(c => categoryIds.Any(pc => c.Id == pc)) // вытаскиваем из базы категории Id которых содержится в списке идшников
+                .Where(c => categoryIds.Any(pc => c.Id == pc)) 
                 .ToList();
 
-            _dbContext.SaveChanges(); // значения меняются благодаря трекингу 
+            _dbContext.SaveChanges(); 
         }
         public Product GetProductById(int id)
         {
