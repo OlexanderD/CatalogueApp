@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\CatalogueApp.Data.csproj" />
-    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj" />
+    <ProjectReference Include="..\CatalogueApp.BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\CatalogueApp.Data\CatalogueApp.Data.csproj" />
   </ItemGroup>
 
 </Project>

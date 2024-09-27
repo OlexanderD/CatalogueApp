@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using CatalogueApp.Data.Data.Models;
-using ClassLibrary2.Interfaces;
-using ClassLibrary2.Services;
+using CatalogueApp.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebCatalogue.ViewModels;
 

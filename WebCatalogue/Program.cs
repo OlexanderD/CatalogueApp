@@ -1,8 +1,8 @@
 using CatalogueApp.Data.Data;
 using CatalogueApp.Data.Interfaces;
 using CatalogueApp.Data.Repositories;
-using ClassLibrary2.Interfaces;
-using ClassLibrary2.Services;
+using CatalogueApp.Interfaces;
+using CatalogueApp.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

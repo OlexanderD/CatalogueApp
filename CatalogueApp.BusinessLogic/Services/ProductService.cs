@@ -1,13 +1,8 @@
 ﻿using CatalogueApp.Data.Data.Models;
 using CatalogueApp.Data.Interfaces;
-using ClassLibrary2.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CatalogueApp.Interfaces;
 
-namespace ClassLibrary2.Services
+namespace CatalogueApp.Services
 {
     public class ProductService:IProductService
     {

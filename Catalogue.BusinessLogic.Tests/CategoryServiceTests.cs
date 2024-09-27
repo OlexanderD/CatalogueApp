@@ -2,14 +2,9 @@
 using CatalogueApp.Data.Data.Models;
 using CatalogueApp.Data.Interfaces;
 using CatalogueApp.Data.Repositories;
-using ClassLibrary2.Services;
+using CatalogueApp.Services;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Catalogue.BusinessLogic.Tests
 {

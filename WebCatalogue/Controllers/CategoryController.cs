@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CatalogueApp.Data.Data.Models;
-using ClassLibrary2.Interfaces;
 using AutoMapper;
 using WebCatalogue.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using FluentValidation;
-using Microsoft.Extensions.Logging;
+using CatalogueApp.Interfaces;
 
 namespace WebCatalogue.Controllers
 {
